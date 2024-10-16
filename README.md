@@ -1,6 +1,6 @@
 # 🚀 K.R.A.T.O.S – Knowledge, Results, Automation, Tracking, Optimization System  
 
-**Gestão automatizada de notas para cursos e instituições de ensino**  
+##Gestão automatizada de notas para cursos e instituições de ensino
 
 O **K.R.A.T.O.S.** é uma plataforma inovadora que automatiza a gestão de notas para cursos preparatórios e instituições de ensino. Ele coleta e organiza dados acadêmicos, envia automaticamente as notas aos responsáveis e facilita o acompanhamento do desempenho dos alunos. Além disso, personaliza mensagens motivadoras e parabeniza destaques da turma, otimizando a comunicação e economizando tempo dos professores.  
 
@@ -10,7 +10,8 @@ O **K.R.A.T.O.S.** é uma plataforma inovadora que automatiza a gestão de notas
 Somos alunos dos cursos de Ciência da Computação e Design da **CESAR School**, participantes da disciplina **Projetos 3**. Nosso objetivo foi desenvolver uma solução eficiente que resolvesse um desafio real enfrentado por instituições de ensino: melhorar a gestão de notas com **tecnologia e automação**.  
 
 🌐 **Acesse o site do projeto:**  
-[Documentação do Projeto K.R.A.T.O.S.](https://sites.google.com/d/17uNs5n18KzcXZsmVOOKlFsNw6e3RjXXd/p/1sV9BzqLHDIzENOBcw9bXnhqsQSHELW2K/edit)  
+[K.R.A.T.O.S.]
+(https://sites.google.com/d/17uNs5n18KzcXZsmVOOKlFsNw6e3RjXXd/p/1sV9BzqLHDIzENOBcw9bXnhqsQSHELW2K/edit)  
 
 ---
 
