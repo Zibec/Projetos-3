@@ -1,11 +1,13 @@
 from django.db import models
 from django.utils import timezone
 
-
 class Aluno(models.Model):
     nome = models.CharField(max_length=100)
     idade = models.DateField()
     sexo = models.CharField(max_length=1, choices=[('M', 'Masculino'), ('F', 'Feminino')])
+
+    def __str__(self):
+        return self.nome
 
 class Simulado(models.Model):
     nome_simulado = models.CharField(max_length=100)
@@ -17,24 +19,20 @@ class Simulado(models.Model):
     def __str__(self):
         return self.nome_simulado
     
-class Aluno(models.Model):
-    simulados = models.ManyToManyField(Simulado, related_name='alunos')
+class Pai(Aluno):
+    nome_pai = models.CharField(max_length=100)
 
     def __str__(self):
-        return self.nome
-    
-class Pai(models.Model):
-    nome = models.CharField(max_length=100)
-    alunos = models.ManyToManyField(Aluno, related_name='pais')
+        return self.nome_pai
 
-    def __str__(self):
-        return self.nome
-    
 class Professor(models.Model):
     nome = models.CharField(max_length=100)
 
     def cadastrar_nota(self, simulado, aluno, nota):
-        # Lógica para cadastrar uma nota
+        if not hasattr(simulado, 'notas'):
+            simulado.notas = {}  # Inicializa um "dicionário" de notas no simulado, se ainda não existir
+
+        simulado.notas[aluno.id] = nota
         pass
 
     def editar_nota(self, simulado, aluno, nova_nota):
@@ -47,9 +45,11 @@ class Professor(models.Model):
 
     def __str__(self):
         return self.nome
+
 class Turma(models.Model):
     nome_turma = models.CharField(max_length=100)
     simulados = models.ManyToManyField(Simulado, related_name='turmas')
+    professor = models.ManyToManyField(Professor, related_name='professor_turma')
 
     def ordenar_notas(self):
         # Lógica para ordenar notas dos alunos
@@ -61,21 +61,23 @@ class Turma(models.Model):
 
     def __str__(self):
         return self.nome_turma
-class ColegioAplicacao(models.Model):
+
+class ColegioAplicacao(Simulado):
     peso_matematica = models.FloatField()
     peso_portugues = models.FloatField()
 
     def calcular_nota(self, simulado):
         # Lógica para calcular a nota usando pesos
         pass
-class ColegioMilitar(models.Model):
+
+class ColegioMilitar(Simulado):
     peso_matematica = models.FloatField()
     peso_portugues = models.FloatField()
 
     def calcular_nota(self, simulado):
         # Lógica para calcular a nota usando pesos específicos
         pass
-class ColegioPoliciaMilitar(models.Model):
+class ColegioPoliciaMilitar(Simulado):
     peso = models.FloatField()
     media = models.FloatField()
 
