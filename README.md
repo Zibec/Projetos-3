@@ -10,7 +10,7 @@ O **K.R.A.T.O.S.** é uma plataforma inovadora que automatiza a gestão de notas
 Somos alunos dos cursos de Ciência da Computação e Design da **CESAR School**, participantes da disciplina **Projetos 3**. Nosso objetivo foi desenvolver uma solução eficiente que resolvesse um desafio real enfrentado por instituições de ensino: melhorar a gestão de notas com **tecnologia e automação**.  
 
 🌐 **Acesse o site do projeto:**  
-[K.R.A.T.O.S.](https://sites.google.com/d/17uNs5n18KzcXZsmVOOKlFsNw6e3RjXXd/p/1sV9BzqLHDIzENOBcw9bXnhqsQSHELW2K/edit)  
+[K.R.A.T.O.S.](https://sites.google.com/d/17uNs5n18KzcXZsmVOOKlFsNw6e3RjXXd/p/1jb4h7ntCT3BXH9dLf_RH65E_78iEIGIA/edit)  
 
 ---
 
