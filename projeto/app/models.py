@@ -3,7 +3,7 @@ from django.utils import timezone
 
 class Aluno(models.Model):
     nome = models.CharField(max_length=100)
-    idade = models.DateField()
+    data_de_nascimento = models.DateField()
     sexo = models.CharField(max_length=1, choices=[('M', 'Masculino'), ('F', 'Feminino')])
 
     def __str__(self):
@@ -28,12 +28,13 @@ class Pai(Aluno):
 class Professor(models.Model):
     nome = models.CharField(max_length=100)
 
+    def cadastrar_aluno(self, aluno):
+        #bla bla bla
+        pass
     def cadastrar_nota(self, simulado, aluno, nota):
         if not hasattr(simulado, 'notas'):
-            simulado.notas = {}  # Inicializa um "dicionário" de notas no simulado, se ainda não existir
-
+            simulado.notas = {}
         simulado.notas[aluno.id] = nota
-        pass
 
     def editar_nota(self, simulado, aluno, nova_nota):
         # Lógica para editar a nota de um aluno
@@ -84,3 +85,5 @@ class ColegioPoliciaMilitar(Simulado):
     def calcular_nota(self, simulado):
         # Lógica para calcular a nota de acordo com o colégio policial militar
         pass
+    
+
