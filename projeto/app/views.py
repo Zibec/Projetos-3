@@ -1,28 +1,32 @@
-from django.shortcuts import render
+from django.shortcuts import render,get_object_or_404
 from django.http import HttpResponse
-
-
-# Simulação de um banco de dados em memória
-notas = []
+from .models import Aluno, Simulado, Nota
 
 def home(request):
     return render(request, 'home.html');
 
-def cadastrar_nota(request):
-    if request.method == 'POST':
-        nome_aluno = request.POST.get('nome_aluno')
-        nota_portugues = request.POST.get('nota_portugues')
-        nota_matematica = request.POST.get('nota_matematica')
-        
-        notas.append({
-            'aluno'    : str(nome_aluno),
-            'portugues': float(nota_portugues),
-            'matematica': float(nota_matematica),
-        })
+def cadastrar_notas(request, simulado_id):
+    simulado = get_object_or_404(Simulado, id=simulado_id)
+    alunos = simulado.alunos.all()
 
-        return HttpResponse("Notas cadastradas com sucesso!")
+    if request.method == "POST":
+        for aluno in alunos:
+            nota_portugues = request.POST.get(f"nota_portugues_{aluno.id}")
+            nota_matematica = request.POST.get(f"nota_matematica_{aluno.id}")
 
-    return render(request, 'cadastrar_notas.html')
+            # Armazenar ou atualizar notas
+            nota, created = Nota.objects.update_or_create(
+                aluno=aluno,
+                simulado=simulado,
+                defaults={
+                    'nota_portugues': nota_portugues,
+                    'nota_matematica': nota_matematica,
+                }
+            )
+
+        return render(request, 'cadastrar_notas.html', {'alunos': alunos, 'success': True, 'simulado': simulado})
+
+    return render(request, 'cadastrar_notas.html', {'alunos': alunos, 'simulado': simulado})
 
 def cadastrar_aluno(request):
     if request.method == 'POST':

@@ -1,27 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Cadastrar Nota</title>
+    <title>Cadastrar Notas</title>
 </head>
 <body>
-    <h1>Cadastrar Nota</h1>
-    <form method="post">
-        {% csrf_token %}
-        
-        <label for="nome_aluno">Nome do aluno:</label>
-        <input type="text" name="nome_aluno" id="nome_aluno" step="0.1" required>
-        <br>
+    <h1>{{ simulado.nome }}</h1>
 
-        <label for="nota_portugues">Acertos português:</label>
-        <input type="number" name="nota_portugues" id="nota_portugues" step="0.1" required>
-        <br>
+<form method="post">
+    {% csrf_token %}
+    <table>
+        <tr>
+            <th>Aluno</th>
+            <th>Nota Português</th>
+            <th>Nota Matemática</th>
+        </tr>
+        {% for aluno in alunos %}
+        <tr>
+            <td>{{ aluno.nome }}</td>
+            <td><input type="text" name="nota_portugues_{{ aluno.id }}" /></td>
+            <td><input type="text" name="nota_matematica_{{ aluno.id }}" /></td>
+        </tr>
+        {% endfor %}
+    </table>
+    <button type="submit">Cadastrar Notas</button>
+</form>
 
-        <label for="nota_matematica">Acertos matemática:</label>
-        <input type="number" name="nota_matematica" id="nota_matematica" step="0.1" required>
-        <br>
-
-        <button type="submit">Cadastrar Nota</button>
-    </form>
 </body>
 </html>

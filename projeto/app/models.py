@@ -10,14 +10,20 @@ class Aluno(models.Model):
         return self.nome
 
 class Simulado(models.Model):
-    nome_simulado = models.CharField(max_length=100)
-    acertos_matematica = models.IntegerField()
-    acertos_portugues = models.IntegerField()
-    data_aplicacao = models.DateField(default=timezone.now)
+    nome = models.CharField(max_length=100)
     alunos = models.ManyToManyField(Aluno, related_name='simulados')
 
     def __str__(self):
-        return self.nome_simulado
+        return self.nome
+
+class Nota(models.Model):
+    aluno = models.ForeignKey(Aluno, on_delete=models.CASCADE)
+    simulado = models.ForeignKey(Simulado, on_delete=models.CASCADE)
+    nota_portugues = models.FloatField(null=True, blank=True)
+    nota_matematica = models.FloatField(null=True, blank=True)
+
+    def __str__(self):
+        return f"{self.aluno.nome} - {self.simulado.nome}"
     
 class Pai(Aluno):
     nome_pai = models.CharField(max_length=100)
