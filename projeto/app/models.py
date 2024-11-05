@@ -1,14 +1,6 @@
 from django.db import models
 from django.utils import timezone
 
-class Aluno(models.Model):
-    nome = models.CharField(max_length=100)
-    data_de_nascimento = models.DateField()
-    sexo = models.CharField(max_length=1, choices=[('M', 'Masculino'), ('F', 'Feminino')])
-
-    def __str__(self):
-        return self.nome
-
 class Simulado(models.Model):
     nome = models.CharField(max_length=100)
     alunos = models.ManyToManyField(Aluno, related_name='simulados')
@@ -63,12 +55,26 @@ class Turma(models.Model):
         pass
 
     def calcular_media(self):
-        # Lógica para calcular a média das notas dos alunos
-        pass
+        alunos = Aluno.objects.filter(turma-self)
+        notas = Nota.objects.filter(aluno__in-alunos)
+        if not notas.count():
+            return 0
+        total_notas = sum(aluno.nota for aluno in alunos if aluno.nota is not None)
+        num_alunos = notas.cont()
+        
+        return total_notas/ num_alunos if num_alunos > 0 else 0
+        
 
     def __str__(self):
         return self.nome_turma
+class Aluno(models.Model):
+    nome = models.CharField(max_length=100)
+    data_de_nascimento = models.DateField()
+    sexo = models.CharField(max_length=1, choices=[('M', 'Masculino'), ('F', 'Feminino')])
+    turma = models.ForeignKey(Turma, on_delete=models.CASCADE, related_name='alunos') 
 
+    def __str__(self):
+        return self.nome
 class ColegioAplicacao(Simulado):
     peso_matematica = models.FloatField()
     peso_portugues = models.FloatField()
