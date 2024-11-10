@@ -1,9 +1,10 @@
 from django.shortcuts import render,get_object_or_404
-from django.http import HttpResponse
-from .models import Aluno, Simulado, Nota
+from django.http import HttpResponse, HttpResponseRedirect
+from .models import Aluno, Simulado, Nota, Pai, Professor
+from django.contrib.auth import authenticate, login
 
-def home(request):
-    return render(request, 'home.html');
+def homePai(request):
+    return render(request, 'home_pai.html')
 
 def cadastrar_notas(request, simulado_id):
     simulado = get_object_or_404(Simulado, id=simulado_id)
@@ -56,3 +57,38 @@ def cadastrar_turma(request):
     
     return render(request, 'turma.html')
         
+def loginPai(request):
+    if request.method == 'GET':
+        return render(request, 'login_pai.html')
+    
+    elif request.method == 'POST':
+        if 'entrar' in request.POST:
+            nome = request.POST.get('nome')
+            senha = request.POST.get('senha')
+            user = authenticate(request, username=nome, password=senha)
+            if user.is_authenticated:
+                login(request, user)
+                return HttpResponseRedirect('/home_pai')
+            else:
+                return render(request, 'login_pai', {'error': 'Credenciais inválidas'})
+            
+        elif 'professor' in request.POST:
+            return HttpResponseRedirect('/login_professor/')#deve retornar a pagina de login do professor quando ela existir
+        
+def loginProfessor(request):
+    if request.method == 'GET':
+        return render(request, 'login_pai')
+    
+    elif request.method == 'POST':
+        if 'entrar' in request.POST:
+            nome = request.POST.get('nome')
+            senha = request.POST.get('senha')
+            user = authenticate(request, username=nome, password=senha)
+            if user.is_authenticated:
+                return HttpResponseRedirect('home_professor/')
+            else:
+                return render(request, 'login_professor.html', {'error': 'Credenciais inválidas'})
+            
+        elif 'responsável' in request.POST:
+            return HttpResponseRedirect('login_pai/')
+            

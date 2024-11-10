@@ -1,5 +1,16 @@
 from django.db import models
 from django.utils import timezone
+from django.contrib.auth.models import User
+
+
+class Aluno(models.Model):
+    nome = models.CharField(max_length=100)
+    data_de_nascimento = models.DateField()
+    sexo = models.CharField(max_length=1, choices=[('M', 'Masculino'), ('F', 'Feminino')])
+    turma = models.ForeignKey('Turma', on_delete=models.CASCADE, related_name='alunos') 
+
+    def __str__(self):
+        return self.nome
 
 class Simulado(models.Model):
     nome = models.CharField(max_length=100)
@@ -17,14 +28,17 @@ class Nota(models.Model):
     def __str__(self):
         return f"{self.aluno.nome} - {self.simulado.nome}"
     
-class Pai(Aluno):
-    nome_pai = models.CharField(max_length=100)
+class Pai(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    aluno = models.ManyToManyField(Aluno, related_name='turmas')
+    nomePai = models.CharField(max_length=100)
 
     def __str__(self):
         return self.nome_pai
 
 class Professor(models.Model):
-    nome = models.CharField(max_length=100)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    nomeProfessor = models.CharField(max_length=100)
 
     def cadastrar_aluno(self, aluno):
         #bla bla bla
@@ -55,8 +69,8 @@ class Turma(models.Model):
         pass
 
     def calcular_media(self):
-        alunos = Aluno.objects.filter(turma-self)
-        notas = Nota.objects.filter(aluno__in-alunos)
+        alunos = Aluno.objects.filter(turma=self)
+        notas = Nota.objects.filter(aluno__in=alunos)
         if not notas.count():
             return 0
         total_notas = sum(aluno.nota for aluno in alunos if aluno.nota is not None)
@@ -64,17 +78,9 @@ class Turma(models.Model):
         
         return total_notas/ num_alunos if num_alunos > 0 else 0
         
-
     def __str__(self):
         return self.nome_turma
-class Aluno(models.Model):
-    nome = models.CharField(max_length=100)
-    data_de_nascimento = models.DateField()
-    sexo = models.CharField(max_length=1, choices=[('M', 'Masculino'), ('F', 'Feminino')])
-    turma = models.ForeignKey(Turma, on_delete=models.CASCADE, related_name='alunos') 
-
-    def __str__(self):
-        return self.nome
+    
 class ColegioAplicacao(Simulado):
     peso_matematica = models.FloatField()
     peso_portugues = models.FloatField()
@@ -90,6 +96,7 @@ class ColegioMilitar(Simulado):
     def calcular_nota(self, simulado):
         # Lógica para calcular a nota usando pesos específicos
         pass
+
 class ColegioPoliciaMilitar(Simulado):
     peso = models.FloatField()
     media = models.FloatField()
@@ -97,5 +104,3 @@ class ColegioPoliciaMilitar(Simulado):
     def calcular_nota(self, simulado):
         # Lógica para calcular a nota de acordo com o colégio policial militar
         pass
-    
-
