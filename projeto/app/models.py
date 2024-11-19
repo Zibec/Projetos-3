@@ -91,25 +91,16 @@ class Turma(models.Model):
         return self.nome_turma
 
 
+class ColegiosMilitares(Simulado):
+    peso_matematica = models.FloatField()
+    peso_portugues = models.FloatField()
+
+    def calcular_nota(self, aluno):
+        nota = Nota.objects.get(aluno=aluno, simulado=self)
+        return (nota.nota_matematica * self.peso_matematica + nota.nota_portugues * self.peso_portugues) / (self.peso_matematica + self.peso_portugues)
+
+
 class ColegioAplicacao(Simulado):
-    peso_matematica = models.FloatField()
-    peso_portugues = models.FloatField()
-
-    def calcular_nota(self, aluno):
-        nota = Nota.objects.get(aluno=aluno, simulado=self)
-        return (nota.nota_matematica * self.peso_matematica + nota.nota_portugues * self.peso_portugues) / (self.peso_matematica + self.peso_portugues)
-
-
-class ColegioMilitar(Simulado):
-    peso_matematica = models.FloatField()
-    peso_portugues = models.FloatField()
-
-    def calcular_nota(self, aluno):
-        nota = Nota.objects.get(aluno=aluno, simulado=self)
-        return (nota.nota_matematica * self.peso_matematica + nota.nota_portugues * self.peso_portugues) / (self.peso_matematica + self.peso_portugues)
-
-
-class ColegioPoliciaMilitar(Simulado):
     peso = models.FloatField()
     media = models.FloatField()
 

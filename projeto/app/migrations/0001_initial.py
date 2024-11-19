@@ -56,16 +56,7 @@ class Migration(migrations.Migration):
             bases=('app.simulado',),
         ),
         migrations.CreateModel(
-            name='ColegioMilitar',
-            fields=[
-                ('simulado_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='app.simulado')),
-                ('peso_matematica', models.FloatField()),
-                ('peso_portugues', models.FloatField()),
-            ],
-            bases=('app.simulado',),
-        ),
-        migrations.CreateModel(
-            name='ColegioPoliciaMilitar',
+            name='ColegiosMilitares',
             fields=[
                 ('simulado_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='app.simulado')),
                 ('peso', models.FloatField()),
