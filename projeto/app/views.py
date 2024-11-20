@@ -1,11 +1,14 @@
-from django.shortcuts import render,get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, HttpResponseRedirect
-from .models import Aluno, Simulado, Nota, Pai, Professor
+from .models import Aluno, Simulado, Nota, Pai, Professor, Turma
 from django.contrib.auth import authenticate, login
 
+# Página inicial para o pai
 def homePai(request):
     return render(request, 'home_pai.html')
 
+
+# Cadastro de notas de alunos em um simulado
 def cadastrar_notas(request, simulado_id):
     simulado = get_object_or_404(Simulado, id=simulado_id)
     alunos = simulado.alunos.all()
@@ -15,13 +18,13 @@ def cadastrar_notas(request, simulado_id):
             nota_portugues = request.POST.get(f"nota_portugues_{aluno.id}")
             nota_matematica = request.POST.get(f"nota_matematica_{aluno.id}")
 
-            # Armazenar ou atualizar notas
-            nota, created = Nota.objects.update_or_create(
+            # Atualizar ou criar as notas no banco de dados
+            Nota.objects.update_or_create(
                 aluno=aluno,
                 simulado=simulado,
                 defaults={
-                    'nota_portugues': nota_portugues,
-                    'nota_matematica': nota_matematica,
+                    'nota_portugues': float(nota_portugues) if nota_portugues else None,
+                    'nota_matematica': float(nota_matematica) if nota_matematica else None,
                 }
             )
 
@@ -29,66 +32,85 @@ def cadastrar_notas(request, simulado_id):
 
     return render(request, 'cadastrar_notas.html', {'alunos': alunos, 'simulado': simulado})
 
+
+# Cadastro de alunos
 def cadastrar_aluno(request):
     if request.method == 'POST':
         nome = request.POST.get('nome')
-        idade = request.POST.get('idade')
+        data_de_nascimento = request.POST.get('data_de_nascimento')
         sexo = request.POST.get('sexo')
-        
-        alunos = []
-        alunos.append({
-            'aluno': str(nome),
-            'sexo': str(sexo),
-            'idade': idade,
-        })
-        return HttpResponse("Aluno cadastrado!")
-    
-    return render(request, 'aluno.html')
+        turma_id = request.POST.get('turma_id')
 
+        # Validar se a turma existe
+        turma = get_object_or_404(Turma, id=turma_id)
+
+        # Criar o aluno no banco de dados
+        Aluno.objects.create(
+            nome=nome,
+            data_de_nascimento=data_de_nascimento,
+            sexo=sexo,
+            turma=turma
+        )
+
+        return HttpResponse("Aluno cadastrado com sucesso!")
+
+    turmas = Turma.objects.all()  # Listar as turmas disponíveis para o formulário
+    return render(request, 'cadastrar_aluno.html', {'turmas': turmas})
+
+
+# Cadastro de turmas
 def cadastrar_turma(request):
     if request.method == 'POST':
         nome_turma = request.POST.get('nome_turma')
-        
-        turmas = []
-        turmas.append({
-            'turma': str(nome_turma),
-        })
-        return HttpResponse("Turma cadastrada!")
-    
-    return render(request, 'turma.html')
-        
+
+        # Criar a turma no banco de dados
+        Turma.objects.create(nome_turma=nome_turma)
+
+        return HttpResponse("Turma cadastrada com sucesso!")
+
+    return render(request, 'cadastrar_turma.html')
+
+
+# Login do Pai
 def loginPai(request):
     if request.method == 'GET':
         return render(request, 'login_pai.html')
-    
+
     elif request.method == 'POST':
         if 'entrar' in request.POST:
             nome = request.POST.get('nome')
             senha = request.POST.get('senha')
             user = authenticate(request, username=nome, password=senha)
-            if user.is_authenticated:
+            if user is not None:
                 login(request, user)
-                return HttpResponseRedirect('/home_pai')
+                return redirect('homePai')
             else:
-                return render(request, 'login_pai', {'error': 'Credenciais inválidas'})
-            
+                return render(request, 'login_pai.html', {'error': 'Credenciais inválidas'})
+
         elif 'professor' in request.POST:
-            return HttpResponseRedirect('/login_professor/')#deve retornar a pagina de login do professor quando ela existir
-        
+            return redirect('loginProfessor')  # Redirecionar para a página de login do professor
+
+
+# Login do Professor
 def loginProfessor(request):
     if request.method == 'GET':
-        return render(request, 'login_pai')
-    
+        return render(request, 'login_professor.html')
+
     elif request.method == 'POST':
         if 'entrar' in request.POST:
             nome = request.POST.get('nome')
             senha = request.POST.get('senha')
             user = authenticate(request, username=nome, password=senha)
-            if user.is_authenticated:
-                return HttpResponseRedirect('home_professor/')
+            if user is not None:
+                login(request, user)
+                return redirect('homeProfessor')  # Substituir pelo caminho correto da home do professor
             else:
                 return render(request, 'login_professor.html', {'error': 'Credenciais inválidas'})
-            
+
         elif 'responsável' in request.POST:
-            return HttpResponseRedirect('login_pai/')
-            
+            return redirect('loginPai')  # Redirecionar para a página de login do pai
+
+
+# Página inicial do professor
+def homeProfessor(request):
+    return render(request, 'home_professor.html')
