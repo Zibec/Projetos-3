@@ -83,32 +83,35 @@ def loginPai(request):
             user = authenticate(request, username=nome, password=senha)
             if user is not None:
                 login(request, user)
-                return redirect('homePai')
+                return HttpResponseRedirect('responsavel/')
             else:
                 return render(request, 'login_pai.html', {'error': 'Credenciais inválidas'})
 
         elif 'professor' in request.POST:
-            return redirect('loginProfessor')  # Redirecionar para a página de login do professor
+            return HttpResponseRedirect('/login_professor/')  # Redirecionar para a página de login do professor
 
 
 # Login do Professor
 def loginProfessor(request):
+    print("BBBBBBBBBBBBBBBBBBBB")
     if request.method == 'GET':
         return render(request, 'login_professor.html')
 
     elif request.method == 'POST':
+        print("AAAAAAAAAA")
         if 'entrar' in request.POST:
             nome = request.POST.get('nome')
             senha = request.POST.get('senha')
             user = authenticate(request, username=nome, password=senha)
             if user is not None:
                 login(request, user)
-                return redirect('homeProfessor')  # Substituir pelo caminho correto da home do professor
+                return HttpResponseRedirect('home_professor/')  # Substituir pelo caminho correto da home do professor
             else:
                 return render(request, 'login_professor.html', {'error': 'Credenciais inválidas'})
 
-        elif 'responsável' in request.POST:
-            return redirect('loginPai')  # Redirecionar para a página de login do pai
+        elif 'pai' in request.POST:
+            print("CCCCCCCCCCCC")
+            return HttpResponseRedirect('/login_responsavel/')  # Redirecionar para a página de login do pai
 
 
 # Página inicial do professor

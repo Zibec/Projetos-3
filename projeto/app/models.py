@@ -53,7 +53,7 @@ class Aluno(models.Model):
     nome = models.CharField(max_length=100)
     data_de_nascimento = models.DateField()
     sexo = models.CharField(max_length=1, choices=[('M', 'Masculino'), ('F', 'Feminino')])
-    turma = models.ForeignKey('Turma', on_delete=models.CASCADE, related_name='alunos')
+    turma = models.ForeignKey('Turma', on_delete=models.CASCADE, related_name='alunos', default=None)
 
     def __str__(self):
         return self.nome

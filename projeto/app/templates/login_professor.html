@@ -2,6 +2,7 @@
     <h1>LOGIN professor</h1>
     <div>
         <form method = 'POST'>
+            {% csrf_token %}
             <label for="nome">Nome:</label>
             <input type="text" name = "nome" required>
             <br>
@@ -11,6 +12,7 @@
             <button type="submit" name = "entrar">Entrar</button>
         </form>
         <form method = "POST">
+            {% csrf_token %}
             <button type="submit" name = "pai">PAI</button>
         </form>
     </div>
