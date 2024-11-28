@@ -1,20 +1,22 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+    
 
-# Classe Pai
 class Pai(User):
+    user_ptr=None
     nome_pai = models.CharField(max_length=100)
     alunos = models.ManyToManyField('Aluno', related_name='pais')
-
+    
     def __str__(self):
         return self.nome_pai
 
 
-# Classe Professor
-class Professor(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='professor', null=False)
+#user_ptr
 
+# Classe Professor
+class Professor(User):
+    user_ptr=None
     def cadastrar_nota(self, simulado, aluno, nota_portugues, nota_matematica):
         Nota.objects.create(
             aluno=aluno,
