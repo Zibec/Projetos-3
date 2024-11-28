@@ -19,13 +19,13 @@
   <div style="text-align: center;"><img src="{% static 'imagens/Logo.png' %}"  alt="logo cesar" width="240px" style="padding-top: 10px;"></div>
   
   <div class=" container-fluid d-flex justify-content-center align-items-center vh-100">
-    <form class="login-form" method="POST" action="{% url 'login' %}">
+    <form class="login-form" method="POST" action="{% url 'login_professor' %}">
       {% csrf_token %}
       <div class="mb-3">
 
         <label class="form-label ">Usuário</label>
         <div class="form-text-input"> 
-        <input type="text" id="login-input" class="form-control form-input" name="username" required placeholder="Digite o nome de usuário">
+        <input type="text" id="login-input" class="form-control form-input" name="nome" required placeholder="Digite o nome de usuário">
       </div>
       </div>
 
@@ -37,7 +37,7 @@
       </div>
 
       <div class="login-button">
-      <input type="submit" class="btn btn-primary grade-button" value="Entrar">
+      <input type="submit" class="btn btn-primary grade-button" value="Entrar" name="entrar">
       </div>
 
       <div class="register-link text-center">

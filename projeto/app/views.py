@@ -72,12 +72,12 @@ def cadastrar_turma(request):
         # Criar a turma no banco de dados
         Turma.objects.create(nome_turma=nome_turma)
 
-        return HttpResponse("Turma cadastrada com sucesso!")
+        return redirect("cadastrar_turma")
 
     return render(request, 'cadastrar_turma.html')
 
 
-def login(request):
+def log(request):
     if request.method == 'GET':
         return render(request, 'login.html')
     elif request.method == 'POST':
@@ -100,7 +100,6 @@ def loginPai(request):
                 login(request, user)
                 return redirect('home_pai')
             else:
-                print("ERRO BURRO OTARIO")
                 return render(request, 'login_pai.html', {'error': 'Credenciais inválidas'})
 
 
@@ -122,5 +121,17 @@ def loginProfessor(request):
 
 # Página inicial do professor
 def homeProfessor(request):
-    return render(request, 'home_professor.html')
-
+    if request.method == 'GET':
+        return render(request, 'home_professor.html')
+    elif request.method == 'POST':
+        if 'turmas' in request.POST:
+            return redirect("turmas")
+        elif 'simulados' in request.POST:
+            return
+        
+def turmas(request):
+    if request.method == 'GET':
+        return render(request, "turma.html")
+    elif request.method == 'POST':
+        if 'cadastrar_turma' in request.POST:
+            return redirect('cadastrar_turma')

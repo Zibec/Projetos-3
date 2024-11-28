@@ -12,10 +12,10 @@
     </ul>
 
     <h2>Cadastrar Nova Turma</h2>
-    <form method="post" action="{% url 'cadastrar_turma' %}">
+    <form method="POST" action="{% url 'cadastrar_turma' %}">
         {% csrf_token %}
         <label for="nome">Nome da Turma:</label>
-        <input type="text" id="nome" name="nome" required>
+        <input type="text" id="nome" name="cadastrar_turma" required>
         <button type="submit">Cadastrar Turma</button>
     </form>
 {% endblock %}

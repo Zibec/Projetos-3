@@ -25,10 +25,13 @@
         <div class="menu-box text-center">
             <h1 class="menu-title">Menu</h1>
             <div class="menu-buttons">
-                <!-- Botão Turmas -->
-                <a  class="btn btn-primary menu-button">Turmas</a>
-                <!-- Botão Simulados -->
-                <a  class="btn btn-primary menu-button">Simulados</a>
+                <form action="{% url 'home_professor' %}" method="POST">
+                    {% csrf_token %}
+                    <!-- Botão Turmas -->
+                    <button  class="btn btn-primary menu-button" name="turmas">Turmas</button>
+                    <!-- Botão Simulados -->
+                    <button  class="btn btn-primary menu-button" name="simulados">Simulados</button>
+                </form>
             </div>
         </div>
     </div>
