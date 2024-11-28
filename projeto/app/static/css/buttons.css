@@ -362,11 +362,12 @@
     }
     
     
-  .grade-button {
-      width: 40px;
+    .grade-button {
+      width: 900px;
       height: 40px;
       color: white;
-      border-radius: 50%;
+      margin-top: 10px;  
+      border-radius: 10%;
       background-color: #1d30d8;
       border: none;
       font-weight: 600;
@@ -381,15 +382,6 @@
       text-decoration: none !important;
     }
     
-    .grade-svgIcon {
-      width: 17px;
-      transition-duration: 0.3s;
-    }
-    
-    .grade-svgIcon path {
-      fill: white;
-    }
-    
     .grade-button:hover {
       width: 120px;
       border-radius: 50px;
@@ -397,29 +389,7 @@
       align-items: center;
     }
     
-    .grade-button:hover .edit-svgIcon {
-      width: 20px;
-      transition-duration: 0.3s;
-      transform: translateY(60%);
     
-    }
-    
-    .grade-button::before {
-      display: none;
-      content: "Gráfico";
-      color: white;
-      transition-duration: 0.3s;
-      font-size: 2px;
-    }
-    
-    .grade-button:hover::before {
-      display: block;
-      padding-right: 10px;
-      font-size: 13px;
-      opacity: 1;
-      transform: translateY(0px);
-      transition-duration: 0.3s;
-    }
   
   
     .send {

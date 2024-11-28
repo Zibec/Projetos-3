@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
+
 # Página inicial para o pai
 @login_required
 def homePai(request):
@@ -77,17 +78,47 @@ def cadastrar_turma(request):
 
 
 def login(request):
-    if request.method == 'POST':
+    if request.method == 'GET':
+        return render(request, 'login.html')
+    elif request.method == 'POST':
+        if 'professor' in request.POST:
+            return redirect('login_professor')
+        elif 'pai' in request.POST:
+            return redirect('login_pai')
+
+# Login do Pai
+def loginPai(request):
+    if request.method == 'GET':
+        return render(request, 'login_pai.html')
+
+    elif request.method == 'POST':
         if 'entrar' in request.POST:
             nome = request.POST.get('nome')
             senha = request.POST.get('senha')
             user = authenticate(request, username=nome, password=senha)
-            if user is :
+            if user is not None:
+                login(request, user)
+                return redirect('home_pai')
+            else:
+                print("ERRO BURRO OTARIO")
+                return render(request, 'login_pai.html', {'error': 'Credenciais inválidas'})
+
+
+# Login do Professor
+def loginProfessor(request):
+    if request.method == 'GET':
+        return render(request, 'login_professor.html')
+
+    elif request.method == 'POST':
+        if 'entrar' in request.POST:
+            nome = request.POST.get('nome')
+            senha = request.POST.get('senha')
+            user = authenticate(request, username=nome, password=senha)
+            if user is not None:
                 login(request, user)
                 return redirect('home_professor')  # Substituir pelo caminho correto da home do professor
             else:
-                return render(request, 'login.html', {'error': 'Credenciais inválidas'})
-
+                return render(request, 'login_professor.html', {'error': 'Credenciais inválidas'})
 
 # Página inicial do professor
 def homeProfessor(request):

@@ -17,46 +17,43 @@
 
 <body class="custom-bg d-flex flex-column justify-content-center align-items-center vh-100">
   <div style="text-align: center;"><img src="{% static 'imagens/Logo.png' %}"  alt="logo cesar" width="240px" style="padding-top: 10px;"></div>
-  <style>
-    .grade-button {
-      width: 120px;
-      height: 40px;
-      color: white;
-      margin-top: 10px;  
-      border-radius: 10%;
-      background-color: #1d30d8;
-      border: none;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.164);
-      cursor: pointer;
-      transition-duration: 0.3s;
-      overflow: hidden;
-      position: relative;
-      text-decoration: none !important;
-    }
-    
-    .grade-button:hover {
-      width: 120px;
-      border-radius: 50px;
-      transition-duration: 0.3s;
-      align-items: center;
-    }
-  </style>
+  
   <div class=" container-fluid d-flex justify-content-center align-items-center vh-100">
- 
-    <div>
-        <form method = "POST">
-            {% csrf_token %}
-            <button type="submit" name = "pai" class="grade-button">pai</button>
-        </form>
-        <form method = "POST">
-            {% csrf_token %}
-            <button type="submit" name = "professor" class="grade-button">professor</button>
-        </form>
-    </div>
+    <form class="login-form" method="POST" action="{% url 'login' %}">
+      {% csrf_token %}
+      <div class="mb-3">
+
+        <label class="form-label ">Usuário</label>
+        <div class="form-text-input"> 
+        <input type="text" id="login-input" class="form-control form-input" name="username" required placeholder="Digite o nome de usuário">
+      </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Senha</label>
+        <div class="form-text-input"> 
+        <input id="password-input" type="password" class="form-control"  name="senha" placeholder="Digite a senha"  required>
+        </div>
+      </div>
+
+      <div class="login-button">
+      <input type="submit" class="btn btn-primary grade-button" value="Entrar">
+      </div>
+
+      <div class="register-link text-center">
+        Ainda não tem uma conta? Registrar-se
+      </div>
+    
+      {% if messages %}
+      {% for message in messages %}
+        {% if message.tags == 'success' %}
+          <div class="alert alert-success" role="alert">{{ message }}</div>
+        {% else %}
+          <div class="alert alert-danger" role="alert">{{ message }}</div>
+        {% endif %}
+      {% endfor %}
+      {% endif %}
+    </form>
   </div>
 
   <footer class="container-fluid text-center" style="padding-bottom: 10px; background-color: #1d30d8; color: white; bottom: -200; width: 100%;">
