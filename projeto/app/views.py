@@ -88,13 +88,13 @@ def loginPai(request):
             user = authenticate(request, username=nome, password=senha)
             if user is not None:
                 login(request, user)
-                return HttpResponseRedirect('responsavel/')
+                return redirect('home_pai')
             else:
                 print("ERRO BURRO OTARIO")
                 return render(request, 'login_pai.html', {'error': 'Credenciais inválidas'})
 
         elif 'professor' in request.POST:
-            return HttpResponseRedirect('/login_professor/')  # Redirecionar para a página de login do professor
+            return redirect('login_professor')  # Redirecionar para a página de login do professor
 
 
 # Login do Professor
@@ -109,14 +109,15 @@ def loginProfessor(request):
             user = authenticate(request, username=nome, password=senha)
             if user is not None:
                 login(request, user)
-                return HttpResponseRedirect('home_professor/')  # Substituir pelo caminho correto da home do professor
+                return redirect('home_professor')  # Substituir pelo caminho correto da home do professor
             else:
                 return render(request, 'login_professor.html', {'error': 'Credenciais inválidas'})
 
         elif 'pai' in request.POST:
-            return HttpResponseRedirect('/login_responsavel/')  # Redirecionar para a página de login do pai
+            return redirect('login_responsavel')  # Redirecionar para a página de login do pai
 
 
 # Página inicial do professor
 def homeProfessor(request):
     return render(request, 'home_professor.html')
+

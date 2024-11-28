@@ -1,10 +1,9 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>Cadastrar Notas</title>
-</head>
-<body>
+{% extends "main.html" %}
+
+{% load static %}
+{% load i18n %}
+
+{% block content %}
     <h1>{{ simulado.nome }}</h1>
 
 <form method="post">

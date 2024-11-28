@@ -1,0 +1,25 @@
+{% extends " maina.html" %}
+{% load static %}
+{% block content%}
+
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<link rel="stylesheet" href="{% static 'css/buttons.css' %}">
+
+<div class="main-content">
+    <h1>Perfil do Pai: {{ pai.nome }}</h1>
+
+    <h2>Filhos:</h2>
+    <ul>
+        {% for aluno in alunos %}
+            <li>
+                <strong>Nome:</strong> {{ aluno.nome }}<br>
+                <strong>Data de Nascimento:</strong> {{ aluno.data_de_nascimento }}<br>
+                <strong>Idade:</strong> {{ aluno.idade }}<br>
+                <strong>Sexo:</strong> {{ aluno.get_sexo_display }}<br>
+            </li>
+        {% empty %}
+            <p>Não há filhos cadastrados para este pai.</p>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
