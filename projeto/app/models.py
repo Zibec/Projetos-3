@@ -2,20 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
-# Classe base para usuários genéricos
-class UserAbstract(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    email = models.EmailField(unique=True)
-
-    class Meta:
-        abstract = True
-
-    def __str__(self):
-        return self.user.username
-
-
 # Classe Pai
-class Pai(UserAbstract):
+class Pai(User):
     nome_pai = models.CharField(max_length=100)
     alunos = models.ManyToManyField('Aluno', related_name='pais')
 
@@ -24,9 +12,8 @@ class Pai(UserAbstract):
 
 
 # Classe Professor
-class Professor(UserAbstract):
-    nome = models.CharField(max_length=100)
-    registro = models.CharField(max_length=50)
+class Professor(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='professor', null=False)
 
     def cadastrar_nota(self, simulado, aluno, nota_portugues, nota_matematica):
         Nota.objects.create(

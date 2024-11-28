@@ -2,9 +2,14 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from .models import Aluno, Simulado, Nota, Pai, Professor, Turma
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 
 # Página inicial para o pai
+@login_required
 def homePai(request):
+    user = request.user
+    print(user)
     return render(request, 'home_pai.html')
 
 
@@ -85,6 +90,7 @@ def loginPai(request):
                 login(request, user)
                 return HttpResponseRedirect('responsavel/')
             else:
+                print("ERRO BURRO OTARIO")
                 return render(request, 'login_pai.html', {'error': 'Credenciais inválidas'})
 
         elif 'professor' in request.POST:
@@ -93,12 +99,10 @@ def loginPai(request):
 
 # Login do Professor
 def loginProfessor(request):
-    print("BBBBBBBBBBBBBBBBBBBB")
     if request.method == 'GET':
         return render(request, 'login_professor.html')
 
     elif request.method == 'POST':
-        print("AAAAAAAAAA")
         if 'entrar' in request.POST:
             nome = request.POST.get('nome')
             senha = request.POST.get('senha')
@@ -110,7 +114,6 @@ def loginProfessor(request):
                 return render(request, 'login_professor.html', {'error': 'Credenciais inválidas'})
 
         elif 'pai' in request.POST:
-            print("CCCCCCCCCCCC")
             return HttpResponseRedirect('/login_responsavel/')  # Redirecionar para a página de login do pai
 
 
