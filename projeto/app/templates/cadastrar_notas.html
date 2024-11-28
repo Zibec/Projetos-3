@@ -1,8 +1,5 @@
 {% extends "main.html" %}
 
-{% load static %}
-{% load i18n %}
-
 {% block content %}
     <h1>{{ simulado.nome }}</h1>
 
@@ -24,6 +21,4 @@
     </table>
     <button type="submit">Cadastrar Notas</button>
 </form>
-
-</body>
-</html>
+{% endblock content %}

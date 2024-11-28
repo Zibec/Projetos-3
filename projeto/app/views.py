@@ -76,6 +76,15 @@ def cadastrar_turma(request):
     return render(request, 'cadastrar_turma.html')
 
 
+def home(request):
+    if request.method == 'GET':
+        return render(request, 'login.html')
+    
+    elif request.method == 'POST':
+        if 'professor' in request.POST:
+            return redirect('login_professor') 
+        if 'pai' in request.POST:
+            return redirect('login_responsavel') 
 # Login do Pai
 def loginPai(request):
     if request.method == 'GET':

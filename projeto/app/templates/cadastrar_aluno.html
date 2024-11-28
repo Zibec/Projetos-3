@@ -1,8 +1,5 @@
 {% extends "main.html" %}
 
-{% load static %}
-{% load i18n %}
-
 {% block content %}
     <h1>Cadastrar Aluno na Turma: {{ turma.nome }}</h1>
 
@@ -31,5 +28,4 @@
     </form>
 
     <a href="{% url 'listar_turmas' %}">Voltar</a>
-</body>
-</html>
+    {% endblock content %}

@@ -1,5 +1,28 @@
+{% extends "main.html" %}
+{% block content %}
+<style>
+    .grade-button {
+    width: 90px;
+    height: 40px;
+    color: white;
+    margin-top: 10px;  
+    border-radius: 10%;
+    background-color: #1d30d8;
+    border: none;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.164);
+    cursor: pointer;
+    transition-duration: 0.3s;
+    overflow: hidden;
+    position: relative;
+    text-decoration: none !important;
+  }
+</style>
 <center>
-<h1>LOGIN PAI</h1>
+<h1>Login Pai</h1>
 <div>
     <form method = 'POST'>
         {% csrf_token %}
@@ -9,11 +32,13 @@
         <label for="senha">Senha:</label>
         <input type="password" name = "senha" required>
         <br>
-        <button type="submit" name = "entrar">Entrar</button>
+        <button type="submit" name = "entrar" class="grade-button">Entrar</button>
     </form>
     <form method = "POST">
         {% csrf_token %}
-        <button type="submit" name = "professor">professor</button>
+        <button type="submit" name = "professor" class="grade-button">professor</button>
     </form>
 </div>
 </center>
+
+{% endblock content %}

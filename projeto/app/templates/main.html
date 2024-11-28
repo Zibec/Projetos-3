@@ -1,5 +1,8 @@
+{% load static %}
+{% load i18n %}
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt">
 <head>
     <meta charset="UTF-8">
     <head>
@@ -12,5 +15,9 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
       </head>
 
-      <body class ="p-3 m-0 aborder-0 bd-example m-0 border-0 custom-bg bg-blue">
+      <body class ="p-3 m-0 aborder-0 bd-example m-0 border-0 custom-bg bg-white">
+        {% block content %} {% endblock %}
+
+      </body>
+      </html>
     
