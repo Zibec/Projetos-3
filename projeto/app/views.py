@@ -88,14 +88,14 @@ def loginPai(request):
             user = authenticate(request, username=nome, password=senha)
             if user is not None:
                 login(request, user)
-                #FIXME
-                return HttpResponseRedirect('responsavel/')#DJANGO TEM UMA FUNCAO REDIRECT QUE USA COMO BASE NAME DE UMA VIEW
+                return HttpResponseRedirect('responsavel/')
             else:
                 print("ERRO BURRO OTARIO")
                 return render(request, 'login_pai.html', {'error': 'Credenciais inválidas'})
 
         elif 'professor' in request.POST:
-            return HttpResponseRedirect('/login_professor/')  #DJANGO TEM UMA FUNCAO REDIRECT QUE USA COMO BASE NAME DE UMA VIEW
+            return HttpResponseRedirect('/login_professor/')  # Redirecionar para a página de login do professor
+
 
 # Login do Professor
 def loginProfessor(request):
