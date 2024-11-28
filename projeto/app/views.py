@@ -76,54 +76,17 @@ def cadastrar_turma(request):
     return render(request, 'cadastrar_turma.html')
 
 
-def home(request):
-    if request.method == 'GET':
-        return render(request, 'login.html')
-    
-    elif request.method == 'POST':
-        if 'professor' in request.POST:
-            return redirect('login_professor') 
-        if 'pai' in request.POST:
-            return redirect('login_responsavel') 
-# Login do Pai
-def loginPai(request):
-    if request.method == 'GET':
-        return render(request, 'login_pai.html')
-
-    elif request.method == 'POST':
+def login(request):
+    if request.method == 'POST':
         if 'entrar' in request.POST:
             nome = request.POST.get('nome')
             senha = request.POST.get('senha')
             user = authenticate(request, username=nome, password=senha)
-            if user is not None:
-                login(request, user)
-                return redirect('home_pai')
-            else:
-                print("ERRO BURRO OTARIO")
-                return render(request, 'login_pai.html', {'error': 'Credenciais inválidas'})
-
-        elif 'professor' in request.POST:
-            return redirect('login_professor')  # Redirecionar para a página de login do professor
-
-
-# Login do Professor
-def loginProfessor(request):
-    if request.method == 'GET':
-        return render(request, 'login_professor.html')
-
-    elif request.method == 'POST':
-        if 'entrar' in request.POST:
-            nome = request.POST.get('nome')
-            senha = request.POST.get('senha')
-            user = authenticate(request, username=nome, password=senha)
-            if user is not None:
+            if user is :
                 login(request, user)
                 return redirect('home_professor')  # Substituir pelo caminho correto da home do professor
             else:
-                return render(request, 'login_professor.html', {'error': 'Credenciais inválidas'})
-
-        elif 'pai' in request.POST:
-            return redirect('login_responsavel')  # Redirecionar para a página de login do pai
+                return render(request, 'login.html', {'error': 'Credenciais inválidas'})
 
 
 # Página inicial do professor

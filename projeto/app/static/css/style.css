@@ -5,7 +5,7 @@
 .custom-bg {
     width: 100%;
     height: 100vh;
-    background-color: blue;
+    background-color: white;
     overflow-x: hidden !important;
     overflow-y: auto !important;
   }
@@ -68,21 +68,21 @@
   
   .login-form{
     width: 300px; 
-    background-color: #2c2e33;
+    background-color: whitesmoke;
     padding: 20px;
     border-radius: 20px;
-    color: #bdc1c7;
+    color: black;
   }
   .login-form {
     border: none;
-    color: #bdc1c7;
+    color: black;
   }
   
   
   .form-text-input input {
     border: none !important;
-    background-color: #23252c;
-    color: #bdc1c7 !important;
+    background-color: white;
+    color: #0a0b0b !important;
     border-radius: 10px;
     outline: none !important;
     transition: background-color 0.25s ease, outline-color 0.25s ease;
@@ -90,7 +90,6 @@
   
   /* Estilo para o input em focus */
   .form-text-input input:focus {
-    background-color: #23252c;
     outline: 2px solid #1d30d8 !important;
     box-shadow: 0 0 5px 2px #1d30d8;
   
@@ -115,7 +114,7 @@
     color: #bdc1c7 !important;
     }
   .form-text-input input::placeholder {
-    color: #bdc1c7 !important;
+    color: black !important;
    
   }
   .form-text-input select::placeholder {
