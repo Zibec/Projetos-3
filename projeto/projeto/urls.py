@@ -4,7 +4,7 @@ from app import views
 
 urlpatterns = [
     path('', views.log, name='login'),
-    path('login_pai/', views.loginPai, name='login_pai'),
+    path('login_responsavel/', views.loginPai, name='login_pai'),
     path('login_professor/', views.loginProfessor, name='login_professor'),
     path('admin/', admin.site.urls),
     path('responsavel/', views.homePai, name='home_pai'),
