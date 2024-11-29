@@ -41,20 +41,30 @@ def cadastrar_notas(request, simulado_id):
 
 # Cadastro de alunos
 def cadastrar_aluno(request, id):
+    print(id)
+    print(request.method)
+    print("sexo")
     turma = get_object_or_404(Turma, id=id)
     if request.method == 'GET':
         return render(request, 'cadastrar_aluno.html', {"turma": turma})
-    
+    print("zzzzzzzz")
     if request.method == 'POST':
+        print("AAAAAA")
         nome = request.POST.get('nome')
         data_de_nascimento = request.POST.get('data_de_nascimento')
         sexo = request.POST.get('sexo')
+        print(nome)
+        print(data_de_nascimento)
+        print(sexo)
+        print("BBBBBBB")#NOT NULL constraint failed: app_aluno.data_de_nascimento
+
         Aluno.objects.create(
             nome=nome,
             data_de_nascimento=data_de_nascimento,
             sexo=sexo,
             turma=turma)
-        return redirect("alunos", id=turma.id)
+        print('CCCCCCCC')
+        return redirect("alunos", id)
 
 
 # Cadastro de turmas
@@ -135,9 +145,7 @@ def alunos(request, id):
     if request.method == 'GET':
         turma = get_object_or_404(Turma, id=id)
         alunos = turma.alunos.all()
-        if not alunos:
-            return HttpResponse("Nenhum aluno encontrado para esta turma.")
-    
+        
         return render(request, "alunos.html", {"turma": turma, "alunos": alunos})
     elif request.method == 'POST':
         if 'cadastrar_aluno' in request.POST:
