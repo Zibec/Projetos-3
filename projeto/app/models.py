@@ -46,7 +46,7 @@ class Simulado(models.Model):
 # Classe Turma
 class Turma(models.Model):
     nome_turma = models.CharField(max_length=100)
-    professor = models.ManyToManyField(Professor, related_name='turmas')
+    professor = models.ManyToManyField(Professor, related_name='turmas', null=True)
     simulados = models.ManyToManyField(Simulado, related_name='turmas', null=True, blank=True)
 
     def ordenar_notas(self):

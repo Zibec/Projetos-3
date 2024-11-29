@@ -66,15 +66,18 @@ def cadastrar_aluno(request):
 
 # Cadastro de turmas
 def cadastrar_turma(request):
-    if request.method == 'POST':
-        nome_turma = request.POST.get('nome_turma')
+    if request.method == "POST":
+        nome_turma = request.POST.get("nome_turma")
+        professor = Professor.objects.get(user=request.user)
+        if nome_turma:
+            turma = Turma.objects.create(nome_turma=nome_turma)
+            turma.professor.add(professor)
+            return redirect("turmas")
+        else:
+            return render(request, "cadastrar_turma.html", {"erro": "O nome da turma é obrigatório."})
+    return render(request, "cadastrar_turma.html")
 
-        # Criar a turma no banco de dados
-        Turma.objects.create(nome_turma=nome_turma)
-
-        return redirect("cadastrar_turma")
-
-    return render(request, 'cadastrar_turma.html')
+#def cadastrar_aluno(request):
 
 
 def log(request):
@@ -131,7 +134,9 @@ def homeProfessor(request):
         
 def turmas(request):
     if request.method == 'GET':
-        return render(request, "turma.html")
+        professor = Professor.objects.get(user=request.user)
+        turmas = Turma.objects.filter(professor=professor)
+        return render(request, "turmas.html", {"turmas": turmas})
     elif request.method == 'POST':
         if 'cadastrar_turma' in request.POST:
             return redirect('cadastrar_turma')
