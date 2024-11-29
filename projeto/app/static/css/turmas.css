@@ -1,0 +1,166 @@
+    /* Estilo do contêiner do menu */
+.menu-turmas {
+    width: 300px;
+    margin: 20px auto;
+    background-color: #f4f4f4;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    font-family: Arial, sans-serif;
+}
+
+/* Título do menu */
+.menu-turmas h2 {
+    margin: 0 0 20px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Lista de botões */
+.menu-turmas ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Itens da lista */
+.menu-turmas ul li {
+    margin: 10px 0;
+}
+
+/* Botões */
+.menu-turmas ul li button {
+    width: 100%;
+    padding: 10px 15px;
+    background-color: #3b82f6; /* Azul */
+    color: #fff;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.cadastrar-turma button {
+    width: 100%;
+    padding: 10px 15px;
+    background-color: #22c55e; /* Verde */
+    color: #fff;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s, transform 0.2s;
+    margin-bottom: 20px;
+}
+
+/* Hover no botão de cadastrar */
+.cadastrar-turma button:hover {
+    background-color: #16a34a; /* Verde mais escuro */
+    transform: scale(1.05);
+}
+
+/* Hover nos botões */
+.menu-turmas ul li button:hover {
+    background-color: #2563eb; /* Azul mais escuro */
+    transform: scale(1.05);
+}
+
+/* Mensagem de "Não há turmas" */
+.menu-turmas p {
+    color: #666;
+    font-size: 14px;
+    margin: 10px 0;
+}
+
+/* Contêiner da turma */
+.turma-container {
+    width: 600px;
+    margin: 20px auto;
+    background-color: #f4f4f4;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+/* Cabeçalho */
+.header {
+    text-align: right;
+    font-size: 14px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+/* Título da Turma */
+.turma-container h2 {
+    text-align: left;
+    margin: 0 0 15px;
+    color: #333;
+}
+
+/* Tabela de Alunos */
+.alunos-tabela {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+.alunos-tabela th,
+.alunos-tabela td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
+
+.alunos-tabela th {
+    background-color: #3b82f6; /* Azul */
+    color: white;
+    font-weight: bold;
+}
+
+.alunos-tabela tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.alunos-tabela tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Mensagem de tabela vazia */
+.alunos-tabela td[colspan="4"] {
+    text-align: center;
+    font-style: italic;
+    color: #666;
+}
+
+/* Botão Adicionar Aluno */
+.add-aluno {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.add-aluno button {
+    width: 50px;
+    height: 50px;
+    background-color: #3b82f6; /* Azul */
+    color: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.add-aluno button:hover {
+    background-color: #2563eb; /* Azul mais escuro */
+    transform: scale(1.1);
+}
+

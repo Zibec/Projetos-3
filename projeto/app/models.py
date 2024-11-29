@@ -25,7 +25,7 @@ class Professor(models.Model):
 
 class Simulado(models.Model):
     nome = models.CharField(max_length=100)
-    #alunos = models.ManyToManyField(Aluno, related_name='simulados')
+    alunos = models.ManyToManyField('Aluno', related_name='simulados')
     peso_matematica = models.FloatField()
     peso_portugues = models.FloatField()
 

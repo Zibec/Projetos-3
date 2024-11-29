@@ -11,6 +11,7 @@ urlpatterns = [
     path('home_professor/', views.homeProfessor, name='home_professor'),
     path('cadastrar_notas/<int:simulado_id>/', views.cadastrar_notas, name='cadastrar_notas'), # Corrigido aqui
     path('cadastrar_turma/', views.cadastrar_turma, name='cadastrar_turma'),
-    #path('cadastrar_aluno/', views.cadastrar_aluno, name='cadastrar_aluno'),
-    path('turmas/', views.turmas, name='turmas')
+    path('cadastrar_aluno/<int:id>', views.cadastrar_aluno, name='cadastrar_aluno'),
+    path('turmas/', views.turmas, name='turmas'),
+    path('alunos/<int:id>', views.alunos, name='alunos')
 ]

@@ -40,32 +40,27 @@ def cadastrar_notas(request, simulado_id):
 
 
 # Cadastro de alunos
-def cadastrar_aluno(request):
+def cadastrar_aluno(request, id):
+    turma = get_object_or_404(Turma, id=id)
+    if request.method == 'GET':
+        return render(request, 'cadastrar_aluno.html', {"turma": turma})
+    
     if request.method == 'POST':
         nome = request.POST.get('nome')
         data_de_nascimento = request.POST.get('data_de_nascimento')
         sexo = request.POST.get('sexo')
-        turma_id = request.POST.get('turma_id')
-
-        # Validar se a turma existe
-        turma = get_object_or_404(Turma, id=turma_id)
-
-        # Criar o aluno no banco de dados
         Aluno.objects.create(
             nome=nome,
             data_de_nascimento=data_de_nascimento,
             sexo=sexo,
-            turma=turma
-        )
-
-        return HttpResponse("Aluno cadastrado com sucesso!")
-
-    turmas = Turma.objects.all()  # Listar as turmas disponíveis para o formulário
-    return render(request, 'cadastrar_aluno.html', {'turmas': turmas})
+            turma=turma)
+        return redirect("alunos", id=turma.id)
 
 
 # Cadastro de turmas
 def cadastrar_turma(request):
+    if request.method == "GET":
+        return render(request, "cadastrar_turma.html")
     if request.method == "POST":
         nome_turma = request.POST.get("nome_turma")
         professor = Professor.objects.get(user=request.user)
@@ -73,11 +68,6 @@ def cadastrar_turma(request):
             turma = Turma.objects.create(nome_turma=nome_turma)
             turma.professor.add(professor)
             return redirect("turmas")
-        else:
-            return render(request, "cadastrar_turma.html", {"erro": "O nome da turma é obrigatório."})
-    return render(request, "cadastrar_turma.html")
-
-#def cadastrar_aluno(request):
 
 
 def log(request):
@@ -140,3 +130,15 @@ def turmas(request):
     elif request.method == 'POST':
         if 'cadastrar_turma' in request.POST:
             return redirect('cadastrar_turma')
+        
+def alunos(request, id):
+    if request.method == 'GET':
+        turma = get_object_or_404(Turma, id=id)
+        alunos = turma.alunos.all()
+        if not alunos:
+            return HttpResponse("Nenhum aluno encontrado para esta turma.")
+    
+        return render(request, "alunos.html", {"turma": turma, "alunos": alunos})
+    elif request.method == 'POST':
+        if 'cadastrar_aluno' in request.POST:
+            return redirect('cadastrar_aluno')
